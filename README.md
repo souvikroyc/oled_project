@@ -24,23 +24,53 @@ This project displays system stats (IP address, CPU usage, RAM usage, temperatur
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Enable I2C on Your Raspberry Pi 5
 
-First, clone this repository to your Raspberry Pi:
+Open the Raspberry Pi configuration tool:
 
-```bash
-git clone https://github.com/souvikroyc/oled_project.git
-cd oled_project
+<code>sudo raspi-config</code>
 
-sudo apt-get install dos2unix
+Navigate to Interfacing Options and enable I2C.
+
+### 2. Install Git (if using Lite OS)
+If you are using Raspberry Pi OS Lite, you need to install Git:
+
+<code>sudo apt-get update
+sudo apt-get install -y git</code>
+
+### 3. Download Repository from GitHub
+Clone the repository and navigate to the project directory:
+
+<code>git clone https://github.com/souvikroyc/oled_project.git
+cd oled_project</code>
+
+### 4. Execute the Installation Script
+Convert line endings of the install.sh script to Unix format and make it executable:
+
+<code>sudo apt-get install -y dos2unix
 dos2unix install.sh
+chmod +x install.sh</code>
 
-chmod +x install.sh
-./install.sh
+Run the installation script:
 
+<code>./install.sh</code>
 
-### 2. Reboot (if necessary)
+### 5. Reboot (if necessary)
 After the script completes successfully, your Raspberry Pi should start displaying the stats on the OLED screen. If not, try rebooting:
-```bash
-sudo reboot
+<code> sudo reboot</code>
 
+## Troubleshooting
+
+ModuleNotFoundError: No module named 'psutil': Install psutil using 
+<code>pip3 install psutil</code>
+ModuleNotFoundError: No module named 'luma': Install luma.oled using 
+<code>pip3 install luma.oled</code>
+No output on OLED display: Ensure the I2C interface is enabled and that the OLED display is correctly wired and detected (<code>i2cdetect -y 1</code>).
+License
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.
+
+Acknowledgements
+This project uses the luma.oled library for handling the OLED display and psutil for system stats.
