@@ -39,7 +39,7 @@ cp -r * /home/$USER_NAME/oled_project/
 chmod +x /home/$USER_NAME/oled_project/oled_stats.py
 
 # Run the python code for display (optional for testing)
-# python3 /home/$USER_NAME/oled_project/oled_stats.py
+python3 /home/$USER_NAME/oled_project/oled_stats.py
 
 # Create a systemd service to run the script on boot
 sudo tee /etc/systemd/system/oled_stats.service > /dev/null <<EOF
