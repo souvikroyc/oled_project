@@ -13,26 +13,6 @@ sudo apt-get install -y git
 # Install i2c-tools and python-smbus
 sudo apt-get install -y i2c-tools python3-smbus
 
-# Enable I2C by modifying the config.txt file
-# Add i2c_arm=on parameter to /boot/config.txt
-if ! grep -q "^dtparam=i2c_arm=on" /boot/config.txt; then
-    echo "Enabling I2C in /boot/config.txt"
-    echo "dtparam=i2c_arm=on" | sudo tee -a /boot/config.txt
-else
-    echo "I2C is already enabled in /boot/config.txt"
-fi
-
-# Reboot to apply changes
-echo "Rebooting the system to apply changes..."
-sudo reboot
-
-# After reboot, check if /dev/i2c-1 exists
-sleep 60 # Wait for the system to reboot
-if [ ! -e /dev/i2c-1 ]; then
-    echo "Error: /dev/i2c-1 not found. Please check I2C configuration and hardware connections."
-    exit 1
-fi
-
 # Detect I2C devices (optional step for verification)
 i2cdetect -y 1
 
@@ -57,6 +37,9 @@ cp -r * /home/pi/oled_project/
 # Set permissions and make the main script executable
 chmod +x /home/pi/oled_project/oled_stats.py
 
+# Run the python code for display
+python3 oled_stats.py
+
 # Create a systemd service to run the script on boot
 sudo tee /etc/systemd/system/oled_stats.service > /dev/null <<EOF
 [Unit]
@@ -69,7 +52,7 @@ WorkingDirectory=/home/pi/oled_project
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-User=pi
+User=$USER_NAME
 
 [Install]
 WantedBy=multi-user.target
@@ -84,5 +67,5 @@ sudo systemctl enable oled_stats.service
 # Start the service immediately
 sudo systemctl start oled_stats.service
 
-python3 oled_stats.py
+
 echo "Setup completed. The OLED Stats script should be running."
