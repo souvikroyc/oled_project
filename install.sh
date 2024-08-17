@@ -13,6 +13,9 @@ sudo apt-get install -y git
 # Install i2c-tools 
 sudo apt-get install -y i2c-tools
 
+#Install python3
+sudo apt-get install -y python3-pip
+
 # Detect I2C devices (optional step for verification)
 i2cdetect -y 1
 
@@ -25,6 +28,8 @@ sudo rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # Install necessary Python packages
 pip3 install luma.oled psutil
+pip3 install luma.oled
+
 
 # Create the project directory if it doesn't exist
 mkdir -p /home/pi/oled_project
@@ -61,5 +66,8 @@ sudo systemctl enable oled_stats.service
 
 # Start the service immediately
 sudo systemctl start oled_stats.service
+
+# Initiate display on oled
+python3 oled_stats.py
 
 echo "Setup completed. The OLED Stats script should be running."
