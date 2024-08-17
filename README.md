@@ -57,6 +57,7 @@ Run the installation script:
 
 ### 5. Reboot (if necessary)
 After the script completes successfully, your Raspberry Pi should start displaying the stats on the OLED screen. If not, try rebooting:
+
 <code>sudo reboot</code>
 
 ## Troubleshooting
