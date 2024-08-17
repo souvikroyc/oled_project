@@ -69,3 +69,4 @@ sudo systemctl enable oled_stats.service
 sudo systemctl start oled_stats.service
 
 echo "Setup completed. The OLED Stats script should be running."
+sudo reboot
