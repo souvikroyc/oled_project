@@ -7,14 +7,18 @@ set -e
 sudo apt-get update
 sudo apt-get upgrade -y
 
-# Install git
+# Install Git
 sudo apt-get install -y git
 
-# Install i2c-tools 
-sudo apt-get install -y i2c-tools
+# Install i2c-tools and python-smbus
+sudo apt-get install -y i2c-tools python3-smbus
 
-#Install python3
-sudo apt-get install -y python3-pip
+# Enable I2C by modifying the config.txt file
+# Add i2c-bcm2708 and i2c-dev modules to /boot/config.txt
+if ! grep -q "^dtparam=i2c_arm=on" /boot/config.txt; then
+    echo "Enabling I2C in /boot/config.txt"
+    echo "dtparam=i2c_arm=on" | sudo tee -a /boot/config.txt
+fi
 
 # Detect I2C devices (optional step for verification)
 i2cdetect -y 1
@@ -28,8 +32,6 @@ sudo rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # Install necessary Python packages
 pip3 install luma.oled psutil
-pip3 install luma.oled
-
 
 # Create the project directory if it doesn't exist
 mkdir -p /home/pi/oled_project
@@ -66,8 +68,5 @@ sudo systemctl enable oled_stats.service
 
 # Start the service immediately
 sudo systemctl start oled_stats.service
-
-# Initiate display on oled
-python3 oled_stats.py
 
 echo "Setup completed. The OLED Stats script should be running."
