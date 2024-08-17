@@ -29,6 +29,8 @@ zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 libatlas-base-dev
 
 # Remove EXTERNALLY-MANAGED file to allow pip package installation
 sudo rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
+sudo apt-get install -y python3-pip
+pip3 install psutil
 
 # Install necessary Python packages
 pip3 install luma.oled psutil
@@ -69,4 +71,5 @@ sudo systemctl enable oled_stats.service
 # Start the service immediately
 sudo systemctl start oled_stats.service
 
+python3 oled_stats.py
 echo "Setup completed. The OLED Stats script should be running."
