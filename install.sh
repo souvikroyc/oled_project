@@ -14,10 +14,23 @@ sudo apt-get install -y git
 sudo apt-get install -y i2c-tools python3-smbus
 
 # Enable I2C by modifying the config.txt file
-# Add i2c-bcm2708 and i2c-dev modules to /boot/config.txt
+# Add i2c_arm=on parameter to /boot/config.txt
 if ! grep -q "^dtparam=i2c_arm=on" /boot/config.txt; then
     echo "Enabling I2C in /boot/config.txt"
     echo "dtparam=i2c_arm=on" | sudo tee -a /boot/config.txt
+else
+    echo "I2C is already enabled in /boot/config.txt"
+fi
+
+# Reboot to apply changes
+echo "Rebooting the system to apply changes..."
+sudo reboot
+
+# After reboot, check if /dev/i2c-1 exists
+sleep 60 # Wait for the system to reboot
+if [ ! -e /dev/i2c-1 ]; then
+    echo "Error: /dev/i2c-1 not found. Please check I2C configuration and hardware connections."
+    exit 1
 fi
 
 # Detect I2C devices (optional step for verification)
