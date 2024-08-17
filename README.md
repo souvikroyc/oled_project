@@ -38,7 +38,8 @@ dos2unix install.sh
 chmod +x install.sh
 ./install.sh
 
-4. Reboot (if necessary)
+
+### 2. Reboot (if necessary)
 After the script completes successfully, your Raspberry Pi should start displaying the stats on the OLED screen. If not, try rebooting:
 ```bash
 sudo reboot
