@@ -17,12 +17,11 @@ sudo apt-get install -y i2c-tools python3-smbus
 i2cdetect -y 1
 
 # Install required system packages
-sudo apt-get install -y python3-pip python3-dev python3-setuptools libjpeg-dev \
-zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 libatlas-base-dev
+sudo apt-get install -y python3-pip
+sudo apt-get install -y libtiff-dev
 
 # Remove EXTERNALLY-MANAGED file to allow pip package installation
 sudo rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
-sudo apt-get install -y python3-pip
 pip3 install psutil
 
 # Install necessary Python packages
