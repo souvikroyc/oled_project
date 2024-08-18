@@ -32,12 +32,31 @@ cp -r * "$PROJECT_DIR/"
 # Set permissions and make the main script executable
 chmod +x "$PROJECT_DIR/oled_stats.py"
 
-# Run the python code for display (optional for testing)
-python3 "$PROJECT_DIR/oled_stats.py"
+# Create a systemd service to run the script on boot
+sudo tee /etc/systemd/system/oled_stats.service > /dev/null <<EOF
+[Unit]
+Description=OLED Stats Service
+After=network.target
 
-# Add a cron job to run the script at reboot
-CRON_JOB="@reboot /usr/bin/python3 $PROJECT_DIR/oled_stats.py"
-(crontab -l ; echo "$CRON_JOB") | crontab -
+[Service]
+ExecStart=/usr/bin/python3 $PROJECT_DIR/oled_stats.py
+WorkingDirectory=$PROJECT_DIR
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=$USER_NAME
 
-echo "Setup completed. The OLED Stats script is set to run at startup via cron."
-sudo reboot
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Reload systemd to apply the new service
+sudo systemctl daemon-reload
+
+# Enable the service to start on boot
+sudo systemctl enable oled_stats.service
+
+# Start the service immediately
+sudo systemctl start oled_stats.service
+
+echo "Setup completed. The OLED Stats script is set to run at startup via systemd."
