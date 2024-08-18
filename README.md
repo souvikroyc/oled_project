@@ -60,6 +60,46 @@ After the script completes successfully, your Raspberry Pi should start displayi
 
 <code>sudo reboot</code>
 
+
+### 5.1 If the display does not show any text, means the systemd need to be setup manually, you can create it:
+
+<code>sudo nano /etc/systemd/system/oled_stats.service</code>
+
+Add the following content:
+
+<code>[Unit]
+Description=OLED Stats Service
+After=network.target</code>
+
+<code>[Service]
+ExecStart=/usr/bin/python3 /home/pi/oled_project/oled_stats.py
+WorkingDirectory=/home/pi/oled_project
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi</code>
+
+<code>[Install]
+WantedBy=multi-user.target </code>
+
+Note: Replace pi with the appropriate username if it is different.
+Save and exit the editor (Ctrl + X, then Y, and Enter).
+
+### 5.2 Reload systemd and Start the Service
+a) Reload systemd to recognize the new service file:
+
+<code>sudo systemctl daemon-reload</code>
+
+b) Enable and start the service:
+
+<code>sudo systemctl enable oled_stats.service
+sudo systemctl start oled_stats.service </code>
+
+c) Check the status of the service:
+
+<code>sudo systemctl status oled_stats.service</code>
+
+
 ## Troubleshooting
 
 ModuleNotFoundError: No module named 'psutil': Install psutil using 
