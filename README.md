@@ -104,9 +104,9 @@ c) Check the status of the service:
 ## Troubleshooting
 
 ModuleNotFoundError: No module named 'psutil': Install psutil using 
-<code>pip3 install psutil</code>
+<br><code>pip3 install psutil</code></br>
 ModuleNotFoundError: No module named 'luma': Install luma.oled using 
-<code>pip3 install luma.oled</code>
+<br><code>pip3 install luma.oled</code></br>
 No output on OLED display: Ensure the I2C interface is enabled and that the OLED display is correctly wired and detected (<code>i2cdetect -y 1</code>).
 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
