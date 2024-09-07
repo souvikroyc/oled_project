@@ -110,7 +110,7 @@ ModuleNotFoundError: No module named 'luma': Install luma.oled using
 No output on OLED display: Ensure the I2C interface is enabled and that the OLED display is correctly wired and detected (<code>i2cdetect -y 1</code>).
 
 <h3>License</h3>
-This project is licensed under the MIT License. See the <a href="https://github.com/souvikroyc/oled_project/blob/main/LICENSE"> LICENSE file <a> for more details. </a>
+This project is licensed under the GNU General Public License v3.0. See the <a href="https://github.com/souvikroyc/oled_project/blob/main/LICENSE"> LICENSE file <a> for more details. </a>
 
 <h3>Contributing</h3>
 Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.
