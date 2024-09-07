@@ -63,8 +63,8 @@ After the script completes successfully, your Raspberry Pi should start displayi
 
 ### 5.1 If the display does not show any text, means the systemd need to be setup manually, you can create it:
 
-<code>cd oled_project</code>
-<code>sudo nano /etc/systemd/system/oled_stats.service</code>
+<code>cd oled_project
+sudo nano /etc/systemd/system/oled_stats.service</code>
 
 Add the following content:
 
