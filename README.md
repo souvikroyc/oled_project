@@ -109,11 +109,11 @@ ModuleNotFoundError: No module named 'luma': Install luma.oled using
 <br><code>pip3 install luma.oled</code></br>
 No output on OLED display: Ensure the I2C interface is enabled and that the OLED display is correctly wired and detected (<code>i2cdetect -y 1</code>).
 
-<br>License
-This project is licensed under the MIT License. See the LICENSE file for more details.</br>
+<h3>License</h3>
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-<br>Contributing
-Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.</br>
+<h3>Contributing</h3>
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.
 
-<br>Acknowledgements
-This project uses the luma.oled library for handling the OLED display and psutil for system stats.</br>
+<h3>Acknowledgements</h3>
+This project uses the luma.oled library for handling the OLED display and psutil for system stats.
