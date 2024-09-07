@@ -108,11 +108,12 @@ ModuleNotFoundError: No module named 'psutil': Install psutil using
 ModuleNotFoundError: No module named 'luma': Install luma.oled using 
 <br><code>pip3 install luma.oled</code></br>
 No output on OLED display: Ensure the I2C interface is enabled and that the OLED display is correctly wired and detected (<code>i2cdetect -y 1</code>).
-License
-This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Contributing
-Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.
+<br>License
+This project is licensed under the MIT License. See the LICENSE file for more details.</br>
 
-Acknowledgements
-This project uses the luma.oled library for handling the OLED display and psutil for system stats.
+<br>Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes.</br>
+
+<br>Acknowledgements
+This project uses the luma.oled library for handling the OLED display and psutil for system stats.</br>
