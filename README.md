@@ -73,7 +73,7 @@ Description=OLED Stats Service
 After=network.target</code>
 
 <code>[Service]
-ExecStart=/usr/bin/python3 /home/pi/oled_project/oled_stats.py
+ExecStart=/usr/bin/python3 /home/pi/oled_project/oled_stats2.py
 WorkingDirectory=/home/pi/oled_project
 StandardOutput=inherit
 StandardError=inherit
