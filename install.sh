@@ -30,7 +30,7 @@ mkdir -p "$PROJECT_DIR"
 cp -r * "$PROJECT_DIR/"
 
 # Set permissions and make the main script executable
-chmod +x "$PROJECT_DIR/oled_stats.py"
+chmod +x "$PROJECT_DIR/oled_stats2.py"
 
 # Create a systemd service to run the script on boot
 sudo tee /etc/systemd/system/oled_stats.service > /dev/null <<EOF
@@ -39,7 +39,7 @@ Description=OLED Stats Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 $PROJECT_DIR/oled_stats.py
+ExecStart=/usr/bin/python3 $PROJECT_DIR/oled_stats2.py
 WorkingDirectory=$PROJECT_DIR
 StandardOutput=inherit
 StandardError=inherit
