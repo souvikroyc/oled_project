@@ -100,6 +100,15 @@ c) Check the status of the service:
 
 <code>sudo systemctl status oled_stats.service</code>
 
+## 6. OpenWeatherMap API key setup:
+This is optional if you are interested to run oled_stats3.py code. Remember you must modify step 5.1 at line number 8 with the respective python file name.
+The user needs to edit the <code> config.py </code> file and provide their OpenWeatherMap API key and city name:
+
+### 6.1 Generate an API Key
+In your OpenWeatherMap account dashboard, generate an API key. This key is required for authentication when you send requests to the OpenWeatherMap servers.
+The free tier typically provides enough calls (e.g., 60 requests/min) for basic applications, but you can upgrade if needed.
+
+
 
 ## Troubleshooting
 
