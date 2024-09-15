@@ -1,12 +1,7 @@
 #oled_project
 #author : souvik roychoudhury
-<<<<<<< HEAD
 #version : 4.0
-=======
-#version : 3.5
 #feature: without welcome screen || it has only IP, CPU, Temp, RAM and Disk information || with weather information
-
->>>>>>> 5a01d1348e85c382849c877caff2c44d59ed4ea4
 
 import time
 import subprocess
