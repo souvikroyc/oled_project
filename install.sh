@@ -22,6 +22,9 @@ sudo rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
 # Install necessary Python packages
 pip3 install luma.oled psutil
 
+#install weather related dependencies
+pip install luma.oled requests pillow
+
 # Create the project directory if it doesn't exist
 PROJECT_DIR="/home/$USER_NAME/oled_project"
 mkdir -p "$PROJECT_DIR"
