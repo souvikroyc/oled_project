@@ -1,4 +1,5 @@
-# oled_stats.py
+# oled_stats3.py
+# Author: Souvik RC
 
 import time
 import requests
