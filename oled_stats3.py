@@ -1,5 +1,7 @@
 #oled_project
 #author : souvik roychoudhury
+#version : 3.5
+#feature: without welcome screen || it has only IP, CPU, Temp, RAM and Disk information || with weather information
 
 
 import time
