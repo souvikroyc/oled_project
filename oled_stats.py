@@ -1,3 +1,8 @@
+#oled_project
+#author : souvik roychoudhury
+#version: 4.1
+#feature: with welcome screen || it has only IP, CPU, Temp, RAM and Disk information.
+
 import time
 import subprocess
 import psutil

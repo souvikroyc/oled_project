@@ -1,6 +1,12 @@
 #oled_project
 #author : souvik roychoudhury
+<<<<<<< HEAD
+#version : 4.0
+=======
+#version : 3.5
+#feature: without welcome screen || it has only IP, CPU, Temp, RAM and Disk information || with weather information
 
+>>>>>>> 5a01d1348e85c382849c877caff2c44d59ed4ea4
 
 import time
 import subprocess
@@ -19,10 +25,12 @@ device = ssd1306(serial, width=128, height=64)
 
 # Load fonts
 default_font = ImageFont.load_default()  # Small default font
-large_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 12)  # Larger font for IP, date, and time
+large_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 12)  # Larger font for weather
+medium_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)  # Medium font for IP, weather
+small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 8)   # Small font for date/time
 
-# Load larger cloud icon (e.g., 32x32 or 48x48 pixels)
-cloud_icon = Image.open("cloud_icon.png").resize((32, 32)).convert("1")  # Adjust size as needed
+# Load weather icons directory
+icons_path = "icons/"
 
 # OpenWeatherMap API setup
 WEATHER_URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
@@ -33,10 +41,33 @@ def get_weather():
         response = requests.get(WEATHER_URL)
         data = response.json()
         temp = data['main']['temp']
-        weather_desc = data['weather'][0]['description']
-        return f"{temp}°C", weather_desc
+        weather_desc = data['weather'][0]['description'].lower()  # Get detailed weather description in lowercase
+        city = data['name']
+        country = data['sys']['country']
+        humidity = data['main']['humidity']
+        return f"{temp}°C", weather_desc, city, country, humidity
     except Exception as e:
-        return "N/A", "N/A"
+        return "N/A", "N/A", "N/A", "N/A", "N/A"
+
+# Weather icon mapping dictionary
+weather_icons = {
+    "clear sky": "sunny.png",
+    "few clouds": "cloudy.png",
+    "scattered clouds": "cloudy.png",
+    "broken clouds": "cloudy.png",
+    "shower rain": "rain.png",
+    "rain": "rain.png",
+    "thunderstorm": "thunderstorm.png",
+    "snow": "snow.png",
+    "mist": "mist.png",
+    "fog": "fog.png",
+    "haze": "fog.png"
+}
+
+# Function to load the correct weather icon based on the description
+def get_weather_icon(weather_desc):
+    icon_file = weather_icons.get(weather_desc, "cloudy.png")  # Default to cloudy if not found
+    return Image.open(icons_path + icon_file).resize((32, 32)).convert("1")
 
 # Function to get the Raspberry Pi IP address
 def get_ip_address():
@@ -81,7 +112,7 @@ while True:
         disk_usage_percent, disk_used, disk_total = get_disk_usage()
 
         with canvas(device) as draw:
-            # Draw IP address with larger font
+            # Draw IP address with medium font
             draw.text((0, 0), f"IP: {ip_address}", font=large_font, fill="yellow")
             
             # Combine CPU and Temperature on one line
@@ -96,17 +127,32 @@ while True:
     else:
         # Display date, time, and weather
         date_str, time_str = get_current_time()
-        temp, weather_desc = get_weather()
+        temp, weather_desc, city, country, humidity = get_weather()
 
         with canvas(device) as draw:
-            # Display date and time with larger font
-            draw.text((0, 0), f"Date: {date_str}", font=large_font, fill="yellow")
-            draw.text((0, 15), f"Time: {time_str}", font=large_font, fill="yellow")
+            # Display reduced-size date and time on the top line
+            draw.text((0, 0), f"{date_str} {time_str}", font=medium_font, fill="yellow")
 
-            # Display larger weather icon and weather information
-            draw.bitmap((0, 35), cloud_icon, fill="white")  # Display larger cloud icon
-            draw.text((40, 35), f"{temp}", font=large_font, fill="blue")  # Weather temp in large font
-            draw.text((40, 50), weather_desc, font=default_font, fill="blue")  # Weather description in default font
+            # Display city and country below date and time
+            draw.text((0, 20), f"Weather for:{city},{country}", font=default_font, fill="blue")
+
+            # Load the appropriate weather icon
+            weather_icon = get_weather_icon(weather_desc)
+
+            # Display weather icon on the left side
+            draw.bitmap((0, 35), weather_icon, fill="white")
+
+            # Display temperature on the right side next to the icon
+            draw.text((40, 35), f"{temp}, {humidity}%", font=large_font, fill="blue")  # Weather temp in large font
+
+            # Display weather description on the right side, below the temperature
+            # Ensure text fits within the screen by using multiple lines if needed
+            lines = [weather_desc.capitalize()[:16], weather_desc.capitalize()[16:32]]
+            for i, line in enumerate(lines):
+                draw.text((40, 50 + i * 10), line, font=default_font, fill="blue")
+
+            # Display humidity below the weather description
+            draw.text((0, 50 + len(lines) * 10), f"Humidity: {humidity}%", font=default_font, fill="blue")
 
     # Toggle pages every 5 seconds
     page = (page + 1) % 2
