@@ -1,3 +1,7 @@
+#oled_project
+#author : souvik roychoudhury
+#version: 4.1
+
 import time
 import subprocess
 import psutil
