@@ -1,8 +1,3 @@
-#oled_project
-#author : souvik roychoudhury
-#version : 4.0
-#feature: without welcome screen || it has only IP, CPU, Temp, RAM and Disk information || with weather information
-
 import time
 import subprocess
 import psutil
@@ -175,7 +170,7 @@ def display_weather_info(description, temperature, humidity):
 # Main loop to switch between pages
 current_page = 1
 last_weather_update = time.time()
-update_interval = 300  # 5 minutes in seconds
+update_interval = 60  # 1 minutes in seconds
 
 # Initialize weather data
 description, temperature, humidity = "", 0, 0
@@ -187,7 +182,7 @@ while True:
         display_system_info()
         current_page = 2
     else:
-        # Update weather information every 5 minutes
+        # Update weather information every 60 seconds
         if current_time - last_weather_update > update_interval:
             description, temperature, humidity = fetch_weather_data()
             last_weather_update = current_time
@@ -195,4 +190,4 @@ while True:
         display_weather_info(description, temperature, humidity)
         current_page = 1
 
-    time.sleep(2)  # Change pages every 2 seconds
+    time.sleep(5)  # Change pages every 5 seconds
