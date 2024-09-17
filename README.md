@@ -103,8 +103,8 @@ c) Check the status of the service:
 ## 6. OpenWeatherMap API key setup:
 This is optional if you are interested to run oled_stats3.py code. Remember you must modify step 5.1 at line number 8 with the respective python file name.
 The user needs to edit the <code> config.py </code> file and provide their OpenWeatherMap API key and city name:
-<code>cd ./oled_project
-sudo nano config.py</code>
+<code>cd ./oled_project</code>
+<code>sudo nano config.py</code>
 
 update the respective informations as mentioned.
 
