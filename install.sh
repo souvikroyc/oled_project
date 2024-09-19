@@ -1,3 +1,6 @@
+#2025 souvik roychoudhury
+#install.sh to install all the dependencies and systemd service
+
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status
@@ -33,25 +36,10 @@ mkdir -p "$PROJECT_DIR"
 cp -r * "$PROJECT_DIR/"
 
 # Set permissions and make the main script executable
-chmod +x "$PROJECT_DIR/oled_stats2.py"
+chmod +x "$PROJECT_DIR/oled_stats3.py"
 
-# Create a systemd service to run the script on boot
-sudo tee /etc/systemd/system/oled_stats.service > /dev/null <<EOF
-[Unit]
-Description=OLED Stats Service
-After=network.target
-
-[Service]
-ExecStart=/usr/bin/python3 $PROJECT_DIR/oled_stats2.py
-WorkingDirectory=$PROJECT_DIR
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
-User=$USER_NAME
-
-[Install]
-WantedBy=multi-user.target
-EOF
+# Copy the systemd service file from the project directory to systemd directory
+sudo cp "$PROJECT_DIR/oled_stats.service" /etc/systemd/system/oled_stats.service
 
 # Reload systemd to apply the new service
 sudo systemctl daemon-reload
@@ -63,3 +51,4 @@ sudo systemctl enable oled_stats.service
 sudo systemctl start oled_stats.service
 
 echo "Setup completed. The OLED Stats script is set to run at startup via systemd."
+sudo reboot
