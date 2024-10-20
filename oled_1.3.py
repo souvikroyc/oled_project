@@ -43,7 +43,7 @@ while True:
         uptime = time.strftime('%H:%M:%S', time.gmtime(time.time() - psutil.boot_time()))
         disk = psutil.disk_usage('/').percent
         ip = get_ip_address()
-        current_time = time.strftime('%Y-%m-%d %I:%M:%S %p')
+        current_time = time.strftime('%Y-%m-%d %I:%M %p')
 
         # Draw lines at the top and bottom
         draw.line((0, 12, 128, 12), fill=255)
@@ -59,6 +59,6 @@ while True:
         
         # Display current date (left-aligned) and time (right-aligned) below the bottom line
         draw.text((0, 50), current_time[:10], font=font, fill=255)  # Date
-        draw.text((75, 50), current_time[11:], font=font, fill=255)  # Time
+        draw.text((80, 50), current_time[11:], font=font, fill=255)  # Time
 
     time.sleep(1)
