@@ -1,3 +1,6 @@
+# Updated for 0.96 inch oled with driver SSD1306
+# version 3
+
 import time
 import subprocess
 import psutil
