@@ -58,7 +58,7 @@ def get_disk_usage():
     disk = psutil.disk_usage('/')
     return disk.percent, disk.used / (1024**3), disk.total / (1024**3)
 
-def get_fan_speed_with_percent(max_rpm=4200):
+def get_fan_speed_with_percent(max_rpm=6500):
     """
     Returns a string like '2450 RPM (58%)'.
     `max_rpm` should be set to your fan's max RPM (consult spec, e.g., 4200 RPM).
@@ -99,3 +99,4 @@ try:
 
 except KeyboardInterrupt:
     shutdown_handler(None, None)
+
