@@ -17,8 +17,8 @@ device = ssd1306(serial, width=128, height=64)
 
 # Load fonts
 default_font = ImageFont.load_default()  # Small default font
-ip_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)  # Larger font for IP
-welcome_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)  # Font for welcome message
+ip_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 5)  # Larger font for IP
+welcome_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)  # Font for welcome message
 
 def display_welcome_message():
     with canvas(device) as draw:
@@ -79,6 +79,7 @@ while True:
         draw.text((0, 45), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
 
     time.sleep(1)
+
 
 
 
