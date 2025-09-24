@@ -22,7 +22,7 @@ welcome_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-B
 
 def display_welcome_message():
     with canvas(device) as draw:
-        welcome_message = "Welcome to Raspi \nHome Media Center"
+        welcome_message = "HELLO!!!!"
         
         # Calculate text size and position to center the text
         text_width, text_height = draw.textbbox((0, 0), welcome_message, font=welcome_font)[2:]
@@ -70,14 +70,15 @@ while True:
         draw.text((0, 0), f"IP: {ip_address}", font=ip_font, fill="yellow")
         
         # Combine CPU and Temperature on one line
-        draw.text((0, 15), f"CPU:{cpu_usage}% TEST:{temperature}", font=default_font, fill="blue")
+        draw.text((0, 15), f"CPU:{cpu_usage}% Temp:{temperature}", font=default_font, fill="blue")
 
         # Memory Usage in GB with percentage
-        draw.text((0, 30), f"RAM: {memory_used:.2f}/{memory_total:.2f}GB ({memory_usage_percent}%)", font=default_font, fill="blue")
+        draw.text((0, 30), f"RAM: {memory_used:.2f}/{memory_total:.2f}GB", font=default_font, fill="blue")
         
         # Disk Usage in GB with percentage
-        draw.text((0, 45), f"Disk: {disk_used:.2f}/{disk_total:.2f}GB ({disk_usage_percent}%)", font=default_font, fill="blue")
+        draw.text((0, 45), f"Disk: {disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
 
     time.sleep(1)
+
 
 
