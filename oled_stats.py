@@ -73,12 +73,13 @@ while True:
         draw.text((0, 15), f"CPU:{cpu_usage}% Temp:{temperature}", font=default_font, fill="blue")
 
         # Memory Usage in GB with percentage
-        draw.text((0, 30), f"RAM: {memory_used:.2f}/{memory_total:.2f}GB", font=default_font, fill="blue")
+        draw.text((0, 30), f"RAM:{memory_used:.2f}/{memory_total:.2f}GB", font=default_font, fill="blue")
         
         # Disk Usage in GB with percentage
-        draw.text((0, 45), f"Disk: {disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
+        draw.text((0, 45), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
 
     time.sleep(1)
+
 
 
 
