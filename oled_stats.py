@@ -1,6 +1,7 @@
 import time
 import subprocess
 import psutil
+import glob                 # NEW: for finding the fan speed file
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import ssd1306
@@ -39,6 +40,21 @@ def get_disk_usage():
     disk = psutil.disk_usage('/')
     return disk.percent, disk.used / (1024 * 1024 * 1024), disk.total / (1024 * 1024 * 1024)
 
+def get_fan_speed():
+    """
+    Return built-in Raspberry Pi 5 fan speed in RPM.
+    Looks for /sys/devices/platform/cooling_fan/hwmon*/fan1_input.
+    """
+    try:
+        paths = glob.glob("/sys/devices/platform/cooling_fan/hwmon*/fan1_input")
+        if not paths:
+            return "N/A"
+        with open(paths[0], "r") as f:
+            rpm = int(f.read().strip())
+        return f"{rpm} RPM"
+    except (FileNotFoundError, ValueError, PermissionError):
+        return "N/A"
+
 try:
     while True:
         ip_address = get_ip_address()
@@ -46,17 +62,17 @@ try:
         mem_percent, mem_used, mem_total = get_memory_usage()
         temperature_f = get_temperature_f()
         disk_percent, disk_used, disk_total = get_disk_usage()
+        fan_speed = get_fan_speed()                 # NEW
 
         with canvas(device) as draw:
             draw.text((0, 0),  "Raspberry Pi Stats:", font=ip_font, fill="white")
             draw.text((0, 15), f"CPU:{cpu_usage:.1f}% Temp:{temperature_f}", font=default_font, fill="white")
             draw.text((0, 25), f"RAM:{mem_used:.2f}/{mem_total:.2f}GB",      font=default_font, fill="white")
             draw.text((0, 35), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB",   font=default_font, fill="white")
-            draw.text((0, 45), f"IP: {ip_address}",                          font=default_font, fill="white")
+            draw.text((0, 45), f"Fan: {fan_speed}",                          font=default_font, fill="white")
+            draw.text((0, 55), f"IP: {ip_address}",                          font=default_font, fill="white")
 
         time.sleep(1)
 
 except KeyboardInterrupt:
     device.clear()
-
-
