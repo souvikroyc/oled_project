@@ -58,10 +58,10 @@ def get_disk_usage():
     disk = psutil.disk_usage('/')
     return disk.percent, disk.used / (1024**3), disk.total / (1024**3)
 
-def get_fan_speed():
+def get_fan_speed_with_percent(max_rpm=4200):
     """
-    Try to read the fan1_input from cooling_fan hwmon.
-    Return string like "1234 RPM" or "N/A" if not readable.
+    Returns a string like '2450 RPM (58%)'.
+    `max_rpm` should be set to your fan's max RPM (consult spec, e.g., 4200 RPM).
     """
     try:
         paths = glob.glob("/sys/devices/platform/cooling_fan/hwmon/*/fan1_input")
@@ -70,9 +70,10 @@ def get_fan_speed():
 
         with open(paths[0], "r") as f:
             rpm_str = f.read().strip()
+        rpm = int(rpm_str)
 
-        rpm = int(rpm_str)  # convert string to int
-        return f"{rpm} RPM"
+        percent = min(int(rpm / max_rpm * 100), 100)
+        return f"{rpm} RPM ({percent}%)"
     except Exception:
         return "N/A"
 
@@ -84,7 +85,7 @@ try:
         mem_percent, mem_used, mem_total = get_memory_usage()
         temperature_f = get_temperature_f()
         disk_percent, disk_used, disk_total = get_disk_usage()
-        fan_speed = get_fan_speed()
+        fan_speed = get_fan_speed_with_percent()
 
         with canvas(device) as draw:
             draw.text((0, 0),  "Raspberry Pi Stats:", font=ip_font, fill="white")
