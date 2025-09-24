@@ -67,7 +67,7 @@ while True:
 
     with canvas(device) as draw:
         # Draw IP address with larger font
-        draw.text((0, 0), f"Pi Stats", font=ip_font, fill="yellow")
+        draw.text((0, 0), f"Raspberry Pi Stats:", font=ip_font, fill="yellow")
         
         # Combine CPU and Temperature on one line
         draw.text((0, 15), f"CPU:{cpu_usage}% Temp:{temperature}", font=default_font, fill="blue")
@@ -79,6 +79,7 @@ while True:
         draw.text((0, 45), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
 
     time.sleep(1)
+
 
 
 
