@@ -50,11 +50,12 @@ try:
         with canvas(device) as draw:
             draw.text((0, 0),  "Raspberry Pi Stats:", font=ip_font, fill="white")
             draw.text((0, 15), f"CPU:{cpu_usage:.1f}% Temp:{temperature_f}", font=default_font, fill="white")
-            draw.text((0, 25), f"RAM:{mem_used:.2f}/{mem_total:.2f}GB",      font=default_font, fill="white")
-            draw.text((0, 35), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB",   font=default_font, fill="white")
-            draw.text((0, 45), f"IP: {ip_address}",                          font=default_font, fill="white")
+            draw.text((0, 28), f"RAM:{mem_used:.2f}/{mem_total:.2f}GB",      font=default_font, fill="white")
+            draw.text((0, 38), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB",   font=default_font, fill="white")
+            draw.text((0, 48), f"IP: {ip_address}",                          font=default_font, fill="white")
 
         time.sleep(1)
 
 except KeyboardInterrupt:
     device.clear()
+
