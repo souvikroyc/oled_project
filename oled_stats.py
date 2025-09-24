@@ -22,7 +22,7 @@ welcome_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-B
 
 def display_welcome_message():
     with canvas(device) as draw:
-        welcome_message = "Getting Info"
+        welcome_message = "Getting Info..."
         
         # Calculate text size and position to center the text
         text_width, text_height = draw.textbbox((0, 0), welcome_message, font=welcome_font)[2:]
@@ -66,7 +66,8 @@ while True:
     disk_usage_percent, disk_used, disk_total = get_disk_usage()
 
     with canvas(device) as draw:
-
+        # Draw IP address with larger font
+        draw.text((0, 0), f"Pi Stats", font=ip_font, fill="yellow")
         
         # Combine CPU and Temperature on one line
         draw.text((0, 15), f"CPU:{cpu_usage}% Temp:{temperature}", font=default_font, fill="blue")
@@ -78,6 +79,7 @@ while True:
         draw.text((0, 45), f"Disk:{disk_used:.2f}/{disk_total:.2f}GB", font=default_font, fill="blue")
 
     time.sleep(1)
+
 
 
 
